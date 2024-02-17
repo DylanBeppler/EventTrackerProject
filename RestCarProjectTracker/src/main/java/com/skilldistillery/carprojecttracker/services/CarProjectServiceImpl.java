@@ -41,7 +41,7 @@ public class CarProjectServiceImpl implements CarProjectService {
 	@Override
 	public CarProject update(int id, CarProject updatedCarProject) {
 		CarProject carProject = repo.searchById(id);
-		if (carProject == null) {
+		if (carProject != null) {
 			carProject.setModel(updatedCarProject.getModel());
 			carProject.setEngine(updatedCarProject.getEngine());
 			carProject.setExterior(updatedCarProject.getExterior());
