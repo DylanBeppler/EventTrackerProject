@@ -26,10 +26,7 @@ public class CarProjectServiceImpl implements CarProjectService {
 
 	@Override
 	public CarProject create(CarProject carProject) {
-		if (carProject.getModel() == null) {
-			carProject.setModel("Default Car");
-		}
-		return repo.save(carProject);
+			return repo.save(carProject);
 	}
 
 	@Override

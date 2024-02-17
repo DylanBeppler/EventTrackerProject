@@ -24,7 +24,7 @@ USE `cartodolisttrackerdb` ;
 DROP TABLE IF EXISTS `car_project` ;
 
 CREATE TABLE IF NOT EXISTS `car_project` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `model` VARCHAR(45) NOT NULL,
   `engine` VARCHAR(250) NULL,
   `exterior` VARCHAR(250) NULL,
