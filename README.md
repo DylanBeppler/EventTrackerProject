@@ -9,10 +9,10 @@ The Project Car Tracker API is designed to manage todo lists for project cars, a
 
 <h4>Throughout the development of the Project Car Tracker, I learned a few things including:</h4>
 
-<strong>Entity Relationship Management:</strong> How to effectively design and implement entity relationships in a MySQL database, ensuring data integrity and efficient data retrieval.<br>
-<strong>Spring Boot Framework:</strong> Utilizing Spring Boot to simplify the setup and development of RESTful APIs, including dependency injection, entity management, and request handling.<br>
-<strong>REST API Design:</strong> Principles of RESTful design and how to create intuitive and scalable API endpoints.<br>
-<strong>CRUD Operations:</strong> Implementing the basic Create, Read, Update, Delete (CRUD) operations in a REST API to manage resources.<br>
+<strong>Entity Relationship Management:</strong> How to effectively design and implement entity relationships in a MySQL database, ensuring data integrity and efficient data retrieval.<br><br>
+<strong>Spring Boot Framework:</strong> Utilizing Spring Boot to simplify the setup and development of RESTful APIs, including dependency injection, entity management, and request handling.<br><br>
+<strong>REST API Design:</strong> Principles of RESTful design and how to create intuitive and scalable API endpoints.<br><br>
+<strong>CRUD Operations:</strong> Implementing the basic Create, Read, Update, Delete (CRUD) operations in a REST API to manage resources.<br><br>
 <strong>Testing with Postman:</strong> Leveraging Postman for testing API routes, validating request and response formats, and ensuring correct status codes are returned.<br>
 
 # <h2>Tech Used</h2>
