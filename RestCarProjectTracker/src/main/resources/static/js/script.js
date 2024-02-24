@@ -7,13 +7,22 @@ window.addEventListener('load', function(e) {
 
 
 function init() {
-	document.projectForm.lookup.addEventListener('click', function(e) {
-		e.preventDefault();
-		let projectId = document.projectForm.projectId.value;
-		if (!isNaN(projectId) && projectId > 0) {
-			getProject(projectId);
-		}
-	})
+    document.getElementById('removeProjectButton').addEventListener('click', function(e) {
+        e.preventDefault(); 
+        let projectId = document.projectForm.projectId.value; 
+        if (!isNaN(projectId) && projectId > 0) {
+            removeProject(projectId);
+        } else {
+            console.error('Invalid Project ID');
+        }
+    });
+    document.projectForm.lookup.addEventListener('click', function(e) {
+        e.preventDefault();
+        let projectId = document.projectForm.projectId.value;
+        if (!isNaN(projectId) && projectId > 0) {
+            getProject(projectId);
+        }
+    });
 }
 
 
@@ -41,6 +50,10 @@ function displayProjectList(projects) {
 
 		let ul = document.createElement('ul');
 		for (let project of projects) {
+
+			let liId = document.createElement('li');
+			liId.textContent = "Id: " + project.id;
+			ul.appendChild(liId);
 
 			let liModel = document.createElement('li');
 			liModel.textContent = "Model: " + project.model;
@@ -85,7 +98,7 @@ function getProject(projectId) {
 				displayProject(projectData);
 
 			} catch (e) {
-				console.error('Error parsing film data:', e);
+				console.error('Error parsing project data:', e);
 				document.getElementById('projectData').textContent = 'Project data is invalid';
 			}
 		} else {
@@ -101,7 +114,7 @@ function getProject(projectId) {
 }
 
 function displayProject(project) {
-	let detailDataDiv = document.getElementById('projectDetailDiv');
+	let detailDataDiv = document.getElementById('projectListDiv');
 	detailDataDiv.textContent = '';
 	let titleElement = document.createElement('h1');
 	titleElement.textContent = project.model;
@@ -131,3 +144,26 @@ function displayProject(project) {
 	detailDataDiv.appendChild(infoList);
 
 }
+
+function removeProject(projectId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', 'api/projects/' + projectId, true);
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 204) { // Handle both 200 OK and 204 No Content responses
+            console.log('Project successfully deleted');
+            document.getElementById('projectData').textContent = 'Project successfully deleted';
+          
+            loadAllProjects(); 
+        } else {
+            console.error('Error deleting project: ', xhr.status);
+            document.getElementById('projectData').textContent = 'Error deleting project';
+        }
+    };
+    xhr.onerror = function() {
+        console.error('Network error while deleting project');
+        document.getElementById('projectData').textContent = 'Network error while deleting project';
+    };
+
+    xhr.send();
+}
+
