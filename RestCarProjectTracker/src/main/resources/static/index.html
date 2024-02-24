@@ -13,9 +13,17 @@
 <form name="projectForm">
     <input type="number" name="projectId">
     <button type="button" name="lookup">Get Project by Id</button> <button type="button" id="removeProjectButton" name="remove">Delete Project by Id</button>
-  </form>
+  </form><br>
 		<div id="projectDetailDiv"></div>
-		<div id="addProjectDiv"></div>
+		<div id="addProjectDiv">
+		<form id="addProjectForm">
+    <input type="text" id="projectModel" placeholder="Model" required>
+    <input type="text" id="projectEngine" placeholder="Engine to do">
+    <input type="text" id="projectInterior" placeholder="Interior to do">
+    <input type="text" id="projectExterior" placeholder="Exterior to do">
+    <input type="text" id="projectSuspension" placeholder="Suspension to do">
+    <button type="button" id="addProjectButton">Add Project</button>
+</form></div>
 		<div id="editProjectDiv"></div>
 		<div id="projectListDiv"></div>
 

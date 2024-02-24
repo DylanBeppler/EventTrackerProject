@@ -7,6 +7,7 @@ window.addEventListener('load', function(e) {
 
 
 function init() {
+    document.getElementById('addProjectButton').addEventListener('click', addProject);
     document.getElementById('removeProjectButton').addEventListener('click', function(e) {
         e.preventDefault(); 
         let projectId = document.projectForm.projectId.value; 
@@ -25,6 +26,34 @@ function init() {
     });
 }
 
+function addProject() {
+    var project = {
+        model: document.getElementById('projectModel').value,
+        engine: document.getElementById('projectEngine').value,
+        interior: document.getElementById('projectInterior').value,
+        exterior: document.getElementById('projectExterior').value,
+        suspension: document.getElementById('projectSuspension').value
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'api/projects', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 201) {
+            var projectData = JSON.parse(xhr.responseText);
+            displayProject(projectData);
+        } else {
+            console.error('Error adding project:', xhr.responseText);
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Request failed');
+    };
+
+    xhr.send(JSON.stringify(project));
+}
 
 function loadAllProjects() {
 	let xhr = new XMLHttpRequest();
