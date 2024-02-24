@@ -7,52 +7,58 @@ window.addEventListener('load', function(e) {
 
 
 function init() {
-    document.getElementById('addProjectButton').addEventListener('click', addProject);
-    document.getElementById('removeProjectButton').addEventListener('click', function(e) {
-        e.preventDefault(); 
-        let projectId = document.projectForm.projectId.value; 
-        if (!isNaN(projectId) && projectId > 0) {
-            removeProject(projectId);
-        } else {
-            console.error('Invalid Project ID');
-        }
-    });
-    document.projectForm.lookup.addEventListener('click', function(e) {
-        e.preventDefault();
-        let projectId = document.projectForm.projectId.value;
-        if (!isNaN(projectId) && projectId > 0) {
-            getProject(projectId);
-        }
-    });
+	document.getElementById('addProjectButton').addEventListener('click', addProject);
+	document.getElementById('removeProjectButton').addEventListener('click', function(e) {
+		e.preventDefault();
+		let projectId = document.projectForm.projectId.value;
+		if (!isNaN(projectId) && projectId > 0) {
+			removeProject(projectId);
+		} else {
+			console.error('Invalid Project ID');
+		}
+	});
+	document.projectForm.lookup.addEventListener('click', function(e) {
+		e.preventDefault();
+		let projectId = document.projectForm.projectId.value;
+		if (!isNaN(projectId) && projectId > 0) {
+			getProject(projectId);
+		}
+	});
 }
 
 function addProject() {
-    var project = {
-        model: document.getElementById('projectModel').value,
-        engine: document.getElementById('projectEngine').value,
-        interior: document.getElementById('projectInterior').value,
-        exterior: document.getElementById('projectExterior').value,
-        suspension: document.getElementById('projectSuspension').value
-    };
+	var project = {
+		model: document.getElementById('projectModel').value,
+		engine: document.getElementById('projectEngine').value,
+		interior: document.getElementById('projectInterior').value,
+		exterior: document.getElementById('projectExterior').value,
+		suspension: document.getElementById('projectSuspension').value
+	};
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'api/projects', true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+	var xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/projects', true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.onload = function() {
-        if (xhr.status === 200 || xhr.status === 201) {
-            var projectData = JSON.parse(xhr.responseText);
-            displayProject(projectData);
-        } else {
-            console.error('Error adding project:', xhr.responseText);
-        }
-    };
+	xhr.onload = function() {
+		if (xhr.status === 200 || xhr.status === 201) {
+			var projectData = JSON.parse(xhr.responseText);
+			displayProject(projectData);
+		var statusMessageElement = document.getElementById('statusMessage');
+		if (statusMessageElement !== null) {
+				statusMessageElement.textContent = 'Project successfully added';
+				statusMessageElement.style.display = 'block'; 
+				statusMessageElement.classList.add('alert-success');
+			}
+		} else {
+			console.error('Error adding project:', xhr.responseText);
+		}
+	};
 
-    xhr.onerror = function() {
-        console.error('Request failed');
-    };
+	xhr.onerror = function() {
+		console.error('Request failed');
+	};
 
-    xhr.send(JSON.stringify(project));
+	xhr.send(JSON.stringify(project));
 }
 
 function loadAllProjects() {
@@ -175,24 +181,28 @@ function displayProject(project) {
 }
 
 function removeProject(projectId) {
-    var xhr = new XMLHttpRequest();
-    xhr.open('DELETE', 'api/projects/' + projectId, true);
-    xhr.onload = function() {
-        if (xhr.status === 200 || xhr.status === 204) { // Handle both 200 OK and 204 No Content responses
-            console.log('Project successfully deleted');
-            document.getElementById('projectData').textContent = 'Project successfully deleted';
-          
-            loadAllProjects(); 
-        } else {
-            console.error('Error deleting project: ', xhr.status);
-            document.getElementById('projectData').textContent = 'Error deleting project';
-        }
-    };
-    xhr.onerror = function() {
-        console.error('Network error while deleting project');
-        document.getElementById('projectData').textContent = 'Network error while deleting project';
-    };
+	var xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/projects/' + projectId, true);
+	xhr.onload = function() {
+		if (xhr.status === 200 || xhr.status === 204) {
+			console.log('Project successfully deleted');
+			var statusMessageElement = document.getElementById('statusMessage');
+			if (statusMessageElement !== null) {
+				statusMessageElement.textContent = 'Project successfully deleted';
+				statusMessageElement.style.display = 'block'; 
+				statusMessageElement.classList.add('alert-success');
+			}
+			loadAllProjects();
+		} else {
+			console.error('Error deleting project: ', xhr.status);
+			document.getElementById('projectData').textContent = 'Error deleting project';
+		}
+	};
+	xhr.onerror = function() {
+		console.error('Network error while deleting project');
+		document.getElementById('projectData').textContent = 'Network error while deleting project';
+	};
 
-    xhr.send();
+	xhr.send();
 }
 
