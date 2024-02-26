@@ -8,13 +8,13 @@ window.addEventListener('load', function(e) {
 
 function init() {
 	document.getElementById('updateProjectButton').addEventListener('click', function() {
-    let projectId = document.getElementById('updateProjectId').value;
-    	console.log(projectId);
-    if (projectId) {
-        updateProject(projectId);
-   	console.log(projectId);
-    }
-});
+		let projectId = document.getElementById('updateProjectId').value;
+		console.log(projectId);
+		if (projectId) {
+			updateProject(projectId);
+			console.log(projectId);
+		}
+	});
 	document.getElementById('addProjectButton').addEventListener('click', addProject);
 	document.getElementById('removeProjectButton').addEventListener('click', function(e) {
 		e.preventDefault();
@@ -76,6 +76,7 @@ function loadAllProjects() {
 		if (xhr.readyState === xhr.DONE) {
 			if (xhr.status === 200) {
 				let projectList = JSON.parse(xhr.responseText);
+				totalProjectsCount = projectList.length;
 				displayProjectList(projectList);
 			} else {
 				//todo
@@ -86,31 +87,33 @@ function loadAllProjects() {
 	xhr.send();
 }
 
+let totalProjectsCount = 0;
+
 function displayProjectList(projects) {
-    let dataDiv = document.getElementById('projectListDiv');
-    dataDiv.textContent = ''; 
+	let dataDiv = document.getElementById('projectListDiv');
+	dataDiv.textContent = '';
 
-   
-    let table = document.createElement('table');
-    table.className = 'table table-striped'; 
 
-    
-    let thead = document.createElement('thead');
-    let headerRow = document.createElement('tr');
-    let headers = ["ID", "Model", "Engine", "Interior", "Exterior", "Suspension"];
-    headers.forEach(headerText => {
-        let header = document.createElement('th');
-        header.textContent = headerText;
-        headerRow.appendChild(header);
-    });
-    thead.appendChild(headerRow);
-    table.appendChild(thead);
+	let table = document.createElement('table');
+	table.className = 'table table-striped';
 
-   
-    let tbody = document.createElement('tbody');
-    projects.forEach(project => {
-        let row = document.createElement('tr');
-        row.innerHTML = `
+
+	let thead = document.createElement('thead');
+	let headerRow = document.createElement('tr');
+	let headers = ["ID", "Model", "Engine", "Interior", "Exterior", "Suspension"];
+	headers.forEach(headerText => {
+		let header = document.createElement('th');
+		header.textContent = headerText;
+		headerRow.appendChild(header);
+	});
+	thead.appendChild(headerRow);
+	table.appendChild(thead);
+
+
+	let tbody = document.createElement('tbody');
+	projects.forEach(project => {
+		let row = document.createElement('tr');
+		row.innerHTML = `
             <td>${project.id}</td>
             <td>${project.model}</td>
             <td>${project.engine}</td>
@@ -118,12 +121,12 @@ function displayProjectList(projects) {
             <td>${project.exterior}</td>
             <td>${project.suspension}</td>
         `;
-        tbody.appendChild(row);
-    });
-    table.appendChild(tbody);
+		tbody.appendChild(row);
+	});
+	table.appendChild(tbody);
 
-    
-    dataDiv.appendChild(table);
+
+	dataDiv.appendChild(table);
 }
 
 function getProject(projectId) {
@@ -152,40 +155,46 @@ function getProject(projectId) {
 }
 
 function displayProject(project) {
-    let detailDataDiv = document.getElementById('projectDetailDiv');
-    detailDataDiv.textContent = ''; 
-    let titleElement = document.createElement('h1');
-    titleElement.textContent = project.model;
-    detailDataDiv.appendChild(titleElement);
+	let detailDataDiv = document.getElementById('projectDetailDiv');
+	detailDataDiv.textContent = '';
+	let titleElement = document.createElement('h1');
+	titleElement.textContent = project.model;
+	detailDataDiv.appendChild(titleElement);
 
-    let infoList = document.createElement('ul');
-    let liEngine = document.createElement('li');
-    liEngine.textContent = "Engine: " + project.engine;
-    infoList.appendChild(liEngine);
+	let infoList = document.createElement('ul');
+	let liEngine = document.createElement('li');
+	liEngine.textContent = "Engine: " + project.engine;
+	infoList.appendChild(liEngine);
 
-    let liInterior = document.createElement('li');
-    liInterior.textContent = "Interior: " + project.interior;
-    infoList.appendChild(liInterior);
+	let liInterior = document.createElement('li');
+	liInterior.textContent = "Interior: " + project.interior;
+	infoList.appendChild(liInterior);
 
-    let liExterior = document.createElement('li');
-    liExterior.textContent = "Exterior: " + project.exterior;
-    infoList.appendChild(liExterior);
+	let liExterior = document.createElement('li');
+	liExterior.textContent = "Exterior: " + project.exterior;
+	infoList.appendChild(liExterior);
 
-    let liSuspension = document.createElement('li');
-    liSuspension.textContent = "Suspension: " + project.suspension;
-    infoList.appendChild(liSuspension);
+	let liSuspension = document.createElement('li');
+	liSuspension.textContent = "Suspension: " + project.suspension;
+	infoList.appendChild(liSuspension);
 
-    detailDataDiv.appendChild(infoList);
+	detailDataDiv.appendChild(infoList);
 
-  
-    let listAllButton = document.createElement('button');
-    listAllButton.textContent = 'List All Projects';
-    listAllButton.className = 'btn btn-primary mt-3'; 
-    listAllButton.addEventListener('click', loadAllProjects);
 
-   
-    detailDataDiv.appendChild(listAllButton);
+	let listAllButton = document.createElement('button');
+	listAllButton.textContent = 'List All Projects';
+	listAllButton.className = 'btn btn-primary mt-3';
+	listAllButton.addEventListener('click', loadAllProjects);
+
+	 let totalCountElement = document.createElement('p');
+    totalCountElement.textContent = `Total Projects: ${totalProjectsCount}`;
+    detailDataDiv.appendChild(totalCountElement);
+
+	detailDataDiv.appendChild(listAllButton);
+
 }
+
+
 
 function removeProject(projectId) {
 	var xhr = new XMLHttpRequest();
@@ -215,46 +224,46 @@ function removeProject(projectId) {
 
 
 function updateProject(projectId) {
-    var projectData = {
-       	model: document.getElementById('updateProjectModel').value,
-        engine: document.getElementById('updateProjectEngine').value,
-        interior: document.getElementById('updateProjectInterior').value,
-        exterior: document.getElementById('updateProjectExterior').value,
-        suspension: document.getElementById('updateProjectSuspension').value
-    };
+	var projectData = {
+		model: document.getElementById('updateProjectModel').value,
+		engine: document.getElementById('updateProjectEngine').value,
+		interior: document.getElementById('updateProjectInterior').value,
+		exterior: document.getElementById('updateProjectExterior').value,
+		suspension: document.getElementById('updateProjectSuspension').value
+	};
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('PUT', 'api/projects/' + projectId, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
+	var xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/projects/' + projectId, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
 
-    xhr.onload = function() {
-        if (xhr.status === 200 || xhr.status === 204) {
-            console.log('Project successfully updated');
-            var statusMessageElement = document.getElementById('statusMessage');
-            if (statusMessageElement !== null) {
-                statusMessageElement.textContent = 'Project successfully updated';
-                statusMessageElement.style.display = 'block';
-                statusMessageElement.classList.add('alert-success');
-            }
-            loadAllProjects(); 
-        } else {
-            console.error('Error updating project: ', xhr.responseText);
-            if (statusMessageElement !== null) {
-                statusMessageElement.textContent = 'Error updating project';
-                statusMessageElement.style.display = 'block';
-                statusMessageElement.classList.add('alert-danger');
-            }
-        }
-    };
+	xhr.onload = function() {
+		if (xhr.status === 200 || xhr.status === 204) {
+			console.log('Project successfully updated');
+			var statusMessageElement = document.getElementById('statusMessage');
+			if (statusMessageElement !== null) {
+				statusMessageElement.textContent = 'Project successfully updated';
+				statusMessageElement.style.display = 'block';
+				statusMessageElement.classList.add('alert-success');
+			}
+			loadAllProjects();
+		} else {
+			console.error('Error updating project: ', xhr.responseText);
+			if (statusMessageElement !== null) {
+				statusMessageElement.textContent = 'Error updating project';
+				statusMessageElement.style.display = 'block';
+				statusMessageElement.classList.add('alert-danger');
+			}
+		}
+	};
 
-    xhr.onerror = function() {
-        console.error('Network error while updating project');
-        if (statusMessageElement !== null) {
-            statusMessageElement.textContent = 'Network error while updating project';
-            statusMessageElement.style.display = 'block';
-            statusMessageElement.classList.add('alert-danger');
-        }
-    };
+	xhr.onerror = function() {
+		console.error('Network error while updating project');
+		if (statusMessageElement !== null) {
+			statusMessageElement.textContent = 'Network error while updating project';
+			statusMessageElement.style.display = 'block';
+			statusMessageElement.classList.add('alert-danger');
+		}
+	};
 
-    xhr.send(JSON.stringify(projectData));
+	xhr.send(JSON.stringify(projectData));
 }
