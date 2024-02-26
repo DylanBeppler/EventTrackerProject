@@ -29,4 +29,4 @@ The Project Car Tracker API is designed to manage todo lists for project cars, a
 <strong>JavaScript</strong><br>
 <strong>AJAX</strong>
 
-Front-End: HTML, CSS, and JavaScript for creating the user interface, with AJAX calls for server communication.
+
