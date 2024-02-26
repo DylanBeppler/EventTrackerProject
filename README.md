@@ -15,10 +15,18 @@ The Project Car Tracker API is designed to manage todo lists for project cars, a
 <strong>CRUD Operations:</strong> Implementing the basic Create, Read, Update, Delete (CRUD) operations in a REST API to manage resources.<br><br>
 <strong>Testing with Postman:</strong> Leveraging Postman for testing API routes, validating request and response formats, and ensuring correct status codes are returned.<br>
 
+<strong>Asynchronous Processing in JavaScript:</strong> Learned to handle asynchronous operations in JavaScript using XMLHttpRequest to make non-blocking calls to the server, ensuring a responsive user interface.<br><br>
+<strong>DOM Manipulation:</strong> Enhanced my skills in dynamically updating the HTML document with JavaScript, creating a seamless and interactive user experience without page reloads.<br><br>
+<strong>CSS Styling:</strong> Developed a deeper understanding of CSS for styling web pages, including techniques like setting background images and rounding div edges for a polished look.<br>
+
 # <h2>Tech Used</h2>
 
 <strong>Java / Spring Boot</strong><br>
 <strong>MySQL / MySQL Workbench</strong><br>
 <strong>JPA / Hibernate</strong><br>
 <strong>Postman</strong><br>
+<strong>HTML/CSS</strong><br>
+<strong>JavaScript</strong><br>
+<strong>AJAX</strong>
 
+Front-End: HTML, CSS, and JavaScript for creating the user interface, with AJAX calls for server communication.
