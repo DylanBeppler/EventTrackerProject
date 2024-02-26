@@ -7,6 +7,14 @@ window.addEventListener('load', function(e) {
 
 
 function init() {
+	document.getElementById('updateProjectButton').addEventListener('click', function() {
+    let projectId = document.getElementById('updateProjectId').value;
+    	console.log(projectId);
+    if (projectId) {
+        updateProject(projectId);
+   	console.log(projectId);
+    }
+});
 	document.getElementById('addProjectButton').addEventListener('click', addProject);
 	document.getElementById('removeProjectButton').addEventListener('click', function(e) {
 		e.preventDefault();
@@ -43,10 +51,10 @@ function addProject() {
 		if (xhr.status === 200 || xhr.status === 201) {
 			var projectData = JSON.parse(xhr.responseText);
 			displayProject(projectData);
-		var statusMessageElement = document.getElementById('statusMessage');
-		if (statusMessageElement !== null) {
+			var statusMessageElement = document.getElementById('statusMessage');
+			if (statusMessageElement !== null) {
 				statusMessageElement.textContent = 'Project successfully added';
-				statusMessageElement.style.display = 'block'; 
+				statusMessageElement.style.display = 'block';
 				statusMessageElement.classList.add('alert-success');
 			}
 		} else {
@@ -189,7 +197,7 @@ function removeProject(projectId) {
 			var statusMessageElement = document.getElementById('statusMessage');
 			if (statusMessageElement !== null) {
 				statusMessageElement.textContent = 'Project successfully deleted';
-				statusMessageElement.style.display = 'block'; 
+				statusMessageElement.style.display = 'block';
 				statusMessageElement.classList.add('alert-success');
 			}
 			loadAllProjects();
@@ -206,3 +214,48 @@ function removeProject(projectId) {
 	xhr.send();
 }
 
+
+function updateProject(projectId) {
+    var projectData = {
+       	model: document.getElementById('updateProjectModel').value,
+        engine: document.getElementById('updateProjectEngine').value,
+        interior: document.getElementById('updateProjectInterior').value,
+        exterior: document.getElementById('updateProjectExterior').value,
+        suspension: document.getElementById('updateProjectSuspension').value
+    };
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('PUT', 'api/projects/' + projectId, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 204) {
+            console.log('Project successfully updated');
+            var statusMessageElement = document.getElementById('statusMessage');
+            if (statusMessageElement !== null) {
+                statusMessageElement.textContent = 'Project successfully updated';
+                statusMessageElement.style.display = 'block';
+                statusMessageElement.classList.add('alert-success');
+            }
+            loadAllProjects(); 
+        } else {
+            console.error('Error updating project: ', xhr.responseText);
+            if (statusMessageElement !== null) {
+                statusMessageElement.textContent = 'Error updating project';
+                statusMessageElement.style.display = 'block';
+                statusMessageElement.classList.add('alert-danger');
+            }
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Network error while updating project');
+        if (statusMessageElement !== null) {
+            statusMessageElement.textContent = 'Network error while updating project';
+            statusMessageElement.style.display = 'block';
+            statusMessageElement.classList.add('alert-danger');
+        }
+    };
+
+    xhr.send(JSON.stringify(projectData));
+}
