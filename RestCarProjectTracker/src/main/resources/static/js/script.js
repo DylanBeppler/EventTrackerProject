@@ -79,7 +79,7 @@ function loadAllProjects() {
 				totalProjectsCount = projectList.length;
 				displayProjectList(projectList);
 			} else {
-				//todo
+				document.getElementById('projectData').textContent = 'Project not found';
 			}
 		}
 
@@ -115,7 +115,7 @@ function displayProjectList(projects) {
 		let row = document.createElement('tr');
 		row.innerHTML = `
             <td>${project.id}</td>
-            <td>${project.model}</td>
+            <td><a href="#" class="project-link" data-project-id="${project.id}">${project.model}</a></td>
             <td>${project.engine}</td>
             <td>${project.interior}</td>
             <td>${project.exterior}</td>
@@ -127,7 +127,16 @@ function displayProjectList(projects) {
 
 
 	dataDiv.appendChild(table);
+	document.querySelectorAll('.project-link').forEach(link => {
+		link.addEventListener('click', function(event) {
+			event.preventDefault(); // Prevent the link from navigating
+			let projectId = this.getAttribute('data-project-id');
+			getProject(projectId); // Assume this function fetches project details and displays them
+		});
+	});
 }
+
+
 
 function getProject(projectId) {
 	var xhr = new XMLHttpRequest();
@@ -156,42 +165,43 @@ function getProject(projectId) {
 
 function displayProject(project) {
 	let detailDataDiv = document.getElementById('projectDetailDiv');
-	detailDataDiv.textContent = '';
+	detailDataDiv.textContent = ''; // Clear existing content
+	detailDataDiv.style.display = 'block'; // Make sure the detail div is visible
+
 	let titleElement = document.createElement('h1');
 	titleElement.textContent = project.model;
 	detailDataDiv.appendChild(titleElement);
 
 	let infoList = document.createElement('ul');
-	let liEngine = document.createElement('li');
-	liEngine.textContent = "Engine: " + project.engine;
-	infoList.appendChild(liEngine);
-
-	let liInterior = document.createElement('li');
-	liInterior.textContent = "Interior: " + project.interior;
-	infoList.appendChild(liInterior);
-
-	let liExterior = document.createElement('li');
-	liExterior.textContent = "Exterior: " + project.exterior;
-	infoList.appendChild(liExterior);
-
-	let liSuspension = document.createElement('li');
-	liSuspension.textContent = "Suspension: " + project.suspension;
-	infoList.appendChild(liSuspension);
-
+	['Engine', 'Interior', 'Exterior', 'Suspension'].forEach(detail => {
+		let li = document.createElement('li');
+		li.textContent = `${detail}: ${project[detail.toLowerCase()]}`;
+		infoList.appendChild(li);
+	});
 	detailDataDiv.appendChild(infoList);
 
+	let totalCountElement = document.createElement('p');
+	totalCountElement.textContent = `Total Projects: ${totalProjectsCount}`;
+	detailDataDiv.appendChild(totalCountElement);
 
 	let listAllButton = document.createElement('button');
 	listAllButton.textContent = 'List All Projects';
 	listAllButton.className = 'btn btn-primary mt-3';
-	listAllButton.addEventListener('click', loadAllProjects);
-
-	 let totalCountElement = document.createElement('p');
-    totalCountElement.textContent = `Total Projects: ${totalProjectsCount}`;
-    detailDataDiv.appendChild(totalCountElement);
-
+	listAllButton.addEventListener('click', function() {
+		loadAllProjects();
+		let projectListDiv = document.getElementById('projectListDiv');
+		if (projectListDiv) {
+			projectListDiv.style.display = 'block';
+		}
+		detailDataDiv.style.display = 'none';
+	});
 	detailDataDiv.appendChild(listAllButton);
 
+
+	let projectListDiv = document.getElementById('projectListDiv');
+	if (projectListDiv) {
+		projectListDiv.style.display = 'none';
+	}
 }
 
 
@@ -207,6 +217,13 @@ function removeProject(projectId) {
 				statusMessageElement.textContent = 'Project successfully deleted';
 				statusMessageElement.style.display = 'block';
 				statusMessageElement.classList.add('alert-success');
+
+				setTimeout(function() {
+					statusMessageElement.style.display = 'none';
+					statusMessageElement.classList.remove('alert-success');
+					statusMessageElement.textContent = '';
+				}, 5000);
+
 			}
 			loadAllProjects();
 		} else {
@@ -244,6 +261,7 @@ function updateProject(projectId) {
 				statusMessageElement.textContent = 'Project successfully updated';
 				statusMessageElement.style.display = 'block';
 				statusMessageElement.classList.add('alert-success');
+						
 			}
 			loadAllProjects();
 		} else {
@@ -264,6 +282,9 @@ function updateProject(projectId) {
 			statusMessageElement.classList.add('alert-danger');
 		}
 	};
+
+
+
 
 	xhr.send(JSON.stringify(projectData));
 }
