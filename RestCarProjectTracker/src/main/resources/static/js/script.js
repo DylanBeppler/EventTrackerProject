@@ -87,48 +87,43 @@ function loadAllProjects() {
 }
 
 function displayProjectList(projects) {
-	if (projects && Array.isArray(projects) && projects.length > 0) {
-		let dataDiv = document.getElementById('projectListDiv');
-		dataDiv.textContent = '';
+    let dataDiv = document.getElementById('projectListDiv');
+    dataDiv.textContent = ''; 
 
-		let ul = document.createElement('ul');
-		for (let project of projects) {
+   
+    let table = document.createElement('table');
+    table.className = 'table table-striped'; 
 
-			let liId = document.createElement('li');
-			liId.textContent = "Id: " + project.id;
-			ul.appendChild(liId);
+    
+    let thead = document.createElement('thead');
+    let headerRow = document.createElement('tr');
+    let headers = ["ID", "Model", "Engine", "Interior", "Exterior", "Suspension"];
+    headers.forEach(headerText => {
+        let header = document.createElement('th');
+        header.textContent = headerText;
+        headerRow.appendChild(header);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
 
-			let liModel = document.createElement('li');
-			liModel.textContent = "Model: " + project.model;
-			ul.appendChild(liModel);
+   
+    let tbody = document.createElement('tbody');
+    projects.forEach(project => {
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${project.id}</td>
+            <td>${project.model}</td>
+            <td>${project.engine}</td>
+            <td>${project.interior}</td>
+            <td>${project.exterior}</td>
+            <td>${project.suspension}</td>
+        `;
+        tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
 
-
-			let liEngine = document.createElement('li');
-			liEngine.textContent = "Engine: " + project.engine;
-			ul.appendChild(liEngine);
-
-
-			let liInterior = document.createElement('li');
-			liInterior.textContent = "Interior: " + project.interior;
-			ul.appendChild(liInterior);
-
-
-			let liExterior = document.createElement('li');
-			liExterior.textContent = "Exterior: " + project.exterior;
-			ul.appendChild(liExterior);
-
-
-			let liSuspension = document.createElement('li');
-			liSuspension.textContent = "Suspension: " + project.suspension;
-			ul.appendChild(liSuspension);
-
-
-			ul.appendChild(document.createElement('hr'));
-		}
-
-		dataDiv.appendChild(ul);
-	}
-
+    
+    dataDiv.appendChild(table);
 }
 
 function getProject(projectId) {
@@ -157,35 +152,39 @@ function getProject(projectId) {
 }
 
 function displayProject(project) {
-	let detailDataDiv = document.getElementById('projectListDiv');
-	detailDataDiv.textContent = '';
-	let titleElement = document.createElement('h1');
-	titleElement.textContent = project.model;
-	detailDataDiv.appendChild(titleElement);
+    let detailDataDiv = document.getElementById('projectDetailDiv');
+    detailDataDiv.textContent = ''; 
+    let titleElement = document.createElement('h1');
+    titleElement.textContent = project.model;
+    detailDataDiv.appendChild(titleElement);
 
+    let infoList = document.createElement('ul');
+    let liEngine = document.createElement('li');
+    liEngine.textContent = "Engine: " + project.engine;
+    infoList.appendChild(liEngine);
 
-	let infoList = document.createElement('ul');
-	let liEngine = document.createElement('li');
-	liEngine.textContent = "Engine: " + project.engine;
-	infoList.appendChild(liEngine);
+    let liInterior = document.createElement('li');
+    liInterior.textContent = "Interior: " + project.interior;
+    infoList.appendChild(liInterior);
 
+    let liExterior = document.createElement('li');
+    liExterior.textContent = "Exterior: " + project.exterior;
+    infoList.appendChild(liExterior);
 
-	let liInterior = document.createElement('li');
-	liInterior.textContent = "Interior: " + project.interior;
-	infoList.appendChild(liInterior);
+    let liSuspension = document.createElement('li');
+    liSuspension.textContent = "Suspension: " + project.suspension;
+    infoList.appendChild(liSuspension);
 
+    detailDataDiv.appendChild(infoList);
 
-	let liExterior = document.createElement('li');
-	liExterior.textContent = "Exterior: " + project.exterior;
-	infoList.appendChild(liExterior);
+  
+    let listAllButton = document.createElement('button');
+    listAllButton.textContent = 'List All Projects';
+    listAllButton.className = 'btn btn-primary mt-3'; 
+    listAllButton.addEventListener('click', loadAllProjects);
 
-
-	let liSuspension = document.createElement('li');
-	liSuspension.textContent = "Suspension: " + project.suspension;
-	infoList.appendChild(liSuspension);
-
-	detailDataDiv.appendChild(infoList);
-
+   
+    detailDataDiv.appendChild(listAllButton);
 }
 
 function removeProject(projectId) {
