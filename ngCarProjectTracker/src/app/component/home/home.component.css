@@ -1,0 +1,14 @@
+body {
+  background-image: url('https://manybackgrounds.com/images/hd/gray-jdm-car-front-close-up-3b00r6apr4tkf5kr.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+background-color: #f0f0f0;
+
+margin: auto;
+padding-top: 20px;
+padding-bottom: 10px;
+border-radius: 10px;
+}
