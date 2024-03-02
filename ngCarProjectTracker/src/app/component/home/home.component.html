@@ -1,1 +1,14 @@
 <h1>Car Project Tracker</h1>
+<ul>
+  <li *ngFor="let project of projects">
+    <h3>{{ project.model }}</h3>
+    <p>{{ project.engine }}</p>
+    <p>{{project.interior}}</p>
+    <p>{{project.exterior}}</p>
+    <p>{{project.suspension}}</p>
+
+
+    <button (click)="selectProject(project)">Edit</button>
+    <button (click)="deleteProject(project.id)">Delete</button>
+  </li>
+</ul>

@@ -22,6 +22,10 @@ export class HomeComponent implements OnInit {
     this.loadProjects();
   }
 
+  selectProject(project: Project): void {
+    this.editProject = { ...project };
+  }
+
   loadProjects() {
     this.projectService.index().subscribe({
       next: (projectList) => {
