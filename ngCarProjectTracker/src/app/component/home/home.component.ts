@@ -49,15 +49,16 @@ export class HomeComponent implements OnInit {
   }
 
   updateProject(): void {
-    if (this.editProject && this.editProject.id) {
-      this.projectService.update(this.editProject).subscribe({
-        next: (updatedProject) => {
-          this.loadProjects();
-          this.editProject = null;
-        },
-        error: (err) => console.error(err),
-      });
-    }
+    this.projectService.update(this.editProject!).subscribe({
+      next: (project) => {
+        const index = this.projects.findIndex(p => p.id === project.id);
+        if (index !== -1) {
+          this.projects[index] = project;
+        }
+        this.editProject = null;
+      },
+      error: (err) => console.error(err)
+    });
   }
 
   deleteProject(projectId: number): void {
