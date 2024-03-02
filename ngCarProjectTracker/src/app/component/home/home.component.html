@@ -1,14 +1,28 @@
-<h1>Car Project Tracker</h1>
-<ul>
-  <li *ngFor="let project of projects">
-    <h3>{{ project.model }}</h3>
-    <p>{{ project.engine }}</p>
-    <p>{{project.interior}}</p>
-    <p>{{project.exterior}}</p>
-    <p>{{project.suspension}}</p>
+<table>
+  <thead>
+    <tr>
 
+      <th>Model</th>
+      <th>Engine</th>
+      <th>Interior</th>
+      <th>Exterior</th>
+      <th>Suspension</th>
+      <!-- Add more headers if you have more fields to display -->
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let project of projects">
+      <td>{{project.model}}</td>
+      <td>{{ project.engine }}</td>
+      <td>{{ project.interior }}</td>
+      <td>{{project.exterior}}</td>
+      <td>{{project.suspension}}</td>
 
-    <button (click)="selectProject(project)">Edit</button>
-    <button (click)="deleteProject(project.id)">Delete</button>
-  </li>
-</ul>
+      <td>
+        <button (click)="selectProject(project)">Edit</button>
+        <button (click)="deleteProject(project.id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
