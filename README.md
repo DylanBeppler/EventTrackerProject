@@ -17,7 +17,9 @@ The Project Car Tracker API is designed to manage todo lists for project cars, a
 
 <strong>Asynchronous Processing in JavaScript:</strong> Learned to handle asynchronous operations in JavaScript using XMLHttpRequest to make non-blocking calls to the server, ensuring a responsive user interface.<br><br>
 <strong>DOM Manipulation:</strong> Enhanced my skills in dynamically updating the HTML document with JavaScript, creating a seamless and interactive user experience without page reloads.<br><br>
-<strong>CSS Styling:</strong> Developed a deeper understanding of CSS for styling web pages, including techniques like setting background images and rounding div edges for a polished look.<br>
+<strong>CSS Styling:</strong> Developed a deeper understanding of CSS for styling web pages, including techniques like setting background images and rounding div edges for a polished look.<br><br>
+<strong>Angular Integration:</strong> The introduction of Angular as a frontend framework to transform the application into a more interactive and modern web application.<br>
+
 
 # <h2>Tech Used</h2>
 
@@ -26,8 +28,10 @@ The Project Car Tracker API is designed to manage todo lists for project cars, a
 <strong>JPA / Hibernate</strong><br>
 <strong>Postman</strong><br>
 <strong>HTML/CSS</strong><br>
-<strong>JavaScript</strong><br>
-<strong>AJAX</strong><br>
+<strong>JavaScript/AJAX</strong><br>
+<strong>Angular</strong><br>
+<strong>RxJS</strong><br>
+
 
 <h3>URL:</h3><br>
 http://3.143.89.181:8080/RestCarProjectTracker/
