@@ -38,6 +38,46 @@
   </div>
 </div>
 
+
+<div *ngIf="showAddModal" class="modal show d-block" tabindex="-1" role="dialog" aria-labelledby="addProjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProjectModalLabel">Add New Project</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="model">Model:</label>
+            <input [(ngModel)]="newProject.model" id="model" name="model" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="engine">Engine:</label>
+            <input [(ngModel)]="newProject.engine" id="engine" name="engine" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="interior">Interior:</label>
+            <input [(ngModel)]="newProject.interior" id="interior" name="interior" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="exterior">Exterior:</label>
+            <input [(ngModel)]="newProject.exterior" id="exterior" name="exterior" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="suspension">Suspension:</label>
+            <input [(ngModel)]="newProject.suspension" id="suspension" name="suspension" type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addProject(newProject)">Add Project</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div *ngIf="editProject" class="detail-panel">
   <h3>Project Details</h3>
   <p><strong>Model:</strong> {{ editProject.model }}</p>
@@ -48,6 +88,10 @@
   <button class="btn btn-secondary" (click)="editProject = null">Close</button>
   <button class="btn btn-primary" (click)="selectProject(editProject)">Edit</button>
 </div>
+
+
+<button type="button" class="btn btn-primary" (click)="startAddProject()"><strong>+</strong> Add Project</button>
+
 
 <table class="table table-striped table-hover table-bordered">
   <thead class="thead-dark">

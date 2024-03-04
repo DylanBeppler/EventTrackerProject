@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
   newProject: Project = new Project();
   editProject: Project | null = null;
   showModal: boolean = false;
+  showAddModal: boolean = false;
   selectedProject: Project | null = null;
 
   constructor(private projectService: ProjectService) {}
@@ -32,6 +33,12 @@ export class HomeComponent implements OnInit {
   closePopup(): void {
    this.selectedProject = null;
     this.showModal = false;
+    this.showAddModal = false;
+  }
+
+  startAddProject(): void {
+    this.newProject = new Project();
+    this.showAddModal = true;
   }
 
   showDetails(project: Project): void {
