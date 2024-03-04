@@ -1,28 +1,67 @@
-<table>
-  <thead>
-    <tr>
+<h1>Car Project Tracker</h1>
 
-      <th>Model</th>
-      <th>Engine</th>
-      <th>Interior</th>
-      <th>Exterior</th>
-      <th>Suspension</th>
-      <!-- Add more headers if you have more fields to display -->
-      <th>Actions</th>
+<div *ngIf="selectedProject" class="modal show d-block" tabindex="-1" role="dialog" aria-labelledby="editProjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProjectModalLabel">Edit Project</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="model">Model:</label>
+            <input [(ngModel)]="selectedProject.model" id="model" name="model" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="engine">Engine:</label>
+            <input [(ngModel)]="selectedProject.engine" id="engine" name="engine" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="interior">Interior:</label>
+            <input [(ngModel)]="selectedProject.interior" id="interior" name="interior" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="exterior">Exterior:</label>
+            <input [(ngModel)]="selectedProject.exterior" id="exterior" name="exterior" type="text" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="suspension">Suspension:</label>
+            <input [(ngModel)]="selectedProject.suspension" id="suspension" name="suspension" type="text" class="form-control">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closePopup()">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateProject()">Save Changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Model</th>
+      <th scope="col">Engine</th>
+      <th scope="col">Interior</th>
+      <th scope="col">Exterior</th>
+      <th scope="col">Suspension</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let project of projects">
-      <td>{{project.model}}</td>
+      <td><strong>{{ project.model }}</strong></td>
       <td>{{ project.engine }}</td>
       <td>{{ project.interior }}</td>
-      <td>{{project.exterior}}</td>
-      <td>{{project.suspension}}</td>
-
+      <td>{{ project.exterior }}</td>
+      <td>{{ project.suspension }}</td>
       <td>
-        <button (click)="selectProject(project)">Edit</button>
-        <button (click)="deleteProject(project.id)">Delete</button>
+        <button class="btn btn-primary btn-sm" (click)="selectProject(project)">Edit</button>
+        <button class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">Delete</button>
       </td>
     </tr>
   </tbody>
 </table>
+

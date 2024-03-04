@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,15 +16,28 @@ export class HomeComponent implements OnInit {
   projects: Project[] = [];
   newProject: Project = new Project();
   editProject: Project | null = null;
+  showModal: boolean = false;
+  selectedProject: Project | null = null;
 
   constructor(private projectService: ProjectService) {}
+
+  setEditProject(): void {
+    this.editProject = Object.assign({}, this.selectedProject);
+  }
 
   ngOnInit(): void {
     this.loadProjects();
   }
 
+  closePopup(): void {
+   this.selectedProject = null;
+    this.showModal = false;
+  }
+
   selectProject(project: Project): void {
-    this.editProject = { ...project };
+    this.selectedProject = project;
+    this.showModal = true;
+    console.log('Editing project:', project)
   }
 
   loadProjects() {
@@ -53,13 +67,13 @@ export class HomeComponent implements OnInit {
   }
 
   updateProject(): void {
-    this.projectService.update(this.editProject!).subscribe({
+    this.projectService.update(this.selectedProject!).subscribe({
       next: (project) => {
         const index = this.projects.findIndex(p => p.id === project.id);
         if (index !== -1) {
           this.projects[index] = project;
         }
-        this.editProject = null;
+        this.selectedProject = null;
       },
       error: (err) => console.error(err)
     });
