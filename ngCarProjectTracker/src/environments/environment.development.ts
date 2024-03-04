@@ -1,4 +1,4 @@
 export const environment = {
-baseUrl: 'http://localhost:8086'
+baseUrl: 'http://localhost:8086/'
 
 };

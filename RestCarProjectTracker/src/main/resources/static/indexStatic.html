@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Car Project Tracker</title>
+
+<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script type="text/javascript" src="js/script.js"></script>
+<style>
+body {
+    background-image: url('https://manybackgrounds.com/images/hd/gray-jdm-car-front-close-up-3b00r6apr4tkf5kr.jpg'); 
+    background-size: cover;
+    background-position: center; 
+}
+
+.container {
+background-color: #f0f0f0;
+
+	margin: auto;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	border-radius: 10px;
+}
+
+
+</style>
+</head>
+<body>
+
+	<main class="container mt-5">
+
+<div>
+This is my JavaScript/AJAX front end. <a href="index.html">View my Angular front end.</a>
+</div>
+<hr>
+		<h1 class="mb-4">Car Project Tracker</h1>
+
+		
+		<div class="row mb-4">
+			<div class="col">
+				<form name="projectForm" class="form-inline">
+				    <h3 class="mr-2">Search By Id</h3>
+				    <input type="number" name="projectId" class="form-control mr-2" placeholder="Project ID">
+				    <button type="button" name="lookup" class="btn btn-primary mr-2">Get Project by Id</button> 
+				    <button type="button" id="removeProjectButton" name="remove" class="btn btn-danger">Delete Project by Id</button>
+				</form>
+			</div>
+		</div>
+
+	
+		<div id="projectDetailDiv" class="mb-4"></div>
+		<div id="projectCount"></div>
+			
+			    <h3>Update Project</h3>
+		<div id="updateProjectDiv" class="mb-4">
+		<form id="updateProjectForm" class="form-row">
+			    <input type="number" id="updateProjectId" class="form-control col mr-2" placeholder="Id number" required>
+			    <input type="text" id="updateProjectModel" class="form-control col mr-2" placeholder="Model">
+			    <input type="text" id="updateProjectEngine" class="form-control col mr-2" placeholder="Engine to do">
+			    <input type="text" id="updateProjectInterior" class="form-control col mr-2" placeholder="Interior to do">
+			    <input type="text" id="updateProjectExterior" class="form-control col mr-2" placeholder="Exterior to do">
+			    <input type="text" id="updateProjectSuspension" class="form-control col mr-2" placeholder="Suspension to do">
+			    <button type="button" id="updateProjectButton" class="btn btn-success">Update Project</button>
+			</form>
+			</div>
+	
+		<div id="addProjectDiv" class="mb-4">
+			<h3>Add Project</h3>
+			<form id="addProjectForm" class="form-row">
+			    <input type="text" id="projectModel" class="form-control col mr-2" placeholder="Model" required>
+			    <input type="text" id="projectEngine" class="form-control col mr-2" placeholder="Engine to do">
+			    <input type="text" id="projectInterior" class="form-control col mr-2" placeholder="Interior to do">
+			    <input type="text" id="projectExterior" class="form-control col mr-2" placeholder="Exterior to do">
+			    <input type="text" id="projectSuspension" class="form-control col mr-2" placeholder="Suspension to do">
+			    <button type="button" id="addProjectButton" class="btn btn-success">Add Project</button>
+			</form>
+		</div>
+
+
+		<div id="editProjectDiv" class="mb-4"></div>
+
+		 <div id="statusMessage" class="alert" role="alert" style="display: none;"></div>
+		<div id="projectListDiv" class="mb-4"></div>
+
+	</main>
+
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.9.5/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
