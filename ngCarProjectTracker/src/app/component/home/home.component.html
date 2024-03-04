@@ -1,4 +1,11 @@
-<h1>Car Project Tracker</h1>
+
+<title>Project Car Tracker</title>
+<body>
+<img src="https://i.ibb.co/BGBfxK8/inkpx-word-art.png" alt="inkpx-word-art" border="0">
+
+<div class="search-container" width="300px">
+  <input type="text" class="form-control" placeholder="Search by Model..." [(ngModel)]="searchTerm" (input)="searchProjects()">
+</div>
 
 <div *ngIf="selectedProject" class="modal show d-block" tabindex="-1" role="dialog" aria-labelledby="editProjectModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -105,7 +112,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let project of projects">
+    <tr *ngFor="let project of filteredProjects">
       <td (click)="showDetails(project)"><strong>{{ project.model }}</strong></td>
       <td (click)="showDetails(project)">{{ project.engine }}</td>
       <td (click)="showDetails(project)">{{ project.interior }}</td>
@@ -118,4 +125,5 @@
     </tr>
   </tbody>
 </table>
+</body>
 

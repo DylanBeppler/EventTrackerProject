@@ -19,6 +19,10 @@ export class HomeComponent implements OnInit {
   showModal: boolean = false;
   showAddModal: boolean = false;
   selectedProject: Project | null = null;
+  filteredProjects: Project[] = [];
+  searchTerm: string = '';
+
+
 
   constructor(private projectService: ProjectService) {}
 
@@ -35,6 +39,17 @@ export class HomeComponent implements OnInit {
     this.showModal = false;
     this.showAddModal = false;
   }
+
+  searchProjects(): void {
+    if (!this.searchTerm) {
+      this.filteredProjects = this.projects;
+    } else {
+      this.filteredProjects = this.projects.filter(project =>
+        project.model.toLowerCase().includes(this.searchTerm.toLowerCase())
+        );
+    }
+  }
+
 
   startAddProject(): void {
     this.newProject = new Project();
@@ -56,7 +71,7 @@ export class HomeComponent implements OnInit {
     this.projectService.index().subscribe({
       next: (projectList) => {
         this.projects = projectList;
-        console.log(this.projects);
+        this.filteredProjects = projectList;
       },
       error: (err) => console.error('ProjectListComponent.loadProjects: error'),
     });
