@@ -1,9 +1,9 @@
 
 <title>Project Car Tracker</title>
 <body>
-<img src="https://i.ibb.co/BGBfxK8/inkpx-word-art.png" alt="inkpx-word-art" border="0">
+<img src="https://i.ibb.co/BGBfxK8/inkpx-word-art.png">
 
-<div class="search-container" width="300px">
+<div class="search-container" width="300">
   <input type="text" class="form-control" placeholder="Search by Model..." [(ngModel)]="searchTerm" (input)="searchProjects()">
 </div>
 
@@ -96,9 +96,24 @@
   <button class="btn btn-primary" (click)="selectProject(editProject)">Edit</button>
 </div>
 
+<div *ngIf="projectStatsVisible" class="detail-panel">
+  <h3>Project Statistics</h3>
+   <div class="keyword-counts">
+    <p>Body Kit projects: {{ countOccurrences('body kit') }}</p>
+    <p>Paint work projects: {{ countOccurrences('paint') }}</p>
+    <p>Repairs: {{ countOccurrences('repair') }}</p>
+    <p>Replacements: {{ countOccurrences('replace') }}</p>
+    <p>Installs: {{ countOccurrences('install') }}</p>
+    <p>Total project cars: {{ totalProjects }}</p>
+    <button class="btn btn-secondary" (click)="projectStatsVisible = false">Close</button>
+  </div>
+
+
+</div>
+
 
 <button type="button" class="btn btn-primary" (click)="startAddProject()"><strong>+</strong> Add Project</button>
-
+<button type="button" class="btn btn-success" (click)="toggleProjectStats()">Project Statistics</button>
 
 <table class="table table-striped table-hover table-bordered">
   <thead class="thead-dark">
@@ -125,5 +140,6 @@
     </tr>
   </tbody>
 </table>
+
 </body>
 

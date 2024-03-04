@@ -21,10 +21,15 @@ export class HomeComponent implements OnInit {
   selectedProject: Project | null = null;
   filteredProjects: Project[] = [];
   searchTerm: string = '';
-
+  projectStatsVisible: boolean = false;
 
 
   constructor(private projectService: ProjectService) {}
+
+
+toggleProjectStats(): void {
+  this.projectStatsVisible = !this.projectStatsVisible;
+}
 
   setEditProject(): void {
     this.editProject = Object.assign({}, this.selectedProject);
@@ -50,6 +55,15 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  get totalProjects(): number {
+    return this.projects.length;
+  }
+
+  countOccurrences(keyword: string): number {
+    return this.projects.filter(project => {
+      return (project.engine + project.interior + project.exterior + project.suspension).toLowerCase().includes(keyword.toLowerCase());
+    }).length;
+  }
 
   startAddProject(): void {
     this.newProject = new Project();
