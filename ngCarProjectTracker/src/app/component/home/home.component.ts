@@ -34,6 +34,11 @@ export class HomeComponent implements OnInit {
     this.showModal = false;
   }
 
+  showDetails(project: Project): void {
+    this.editProject = project;
+  }
+
+
   selectProject(project: Project): void {
     this.selectedProject = project;
     this.showModal = true;

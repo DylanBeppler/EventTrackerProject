@@ -38,6 +38,16 @@
   </div>
 </div>
 
+<div *ngIf="editProject" class="detail-panel">
+  <h3>Project Details</h3>
+  <p><strong>Model:</strong> {{ editProject.model }}</p>
+  <p><strong>Engine:</strong> {{ editProject.engine }}</p>
+  <p><strong>Interior:</strong> {{ editProject.interior }}</p>
+  <p><strong>Exterior:</strong> {{ editProject.exterior }}</p>
+  <p><strong>Suspension:</strong> {{ editProject.suspension }}</p>
+  <button class="btn btn-secondary" (click)="editProject = null">Close</button>
+  <button class="btn btn-primary" (click)="selectProject(editProject)">Edit</button>
+</div>
 
 <table class="table table-striped table-hover table-bordered">
   <thead class="thead-dark">
@@ -52,11 +62,11 @@
   </thead>
   <tbody>
     <tr *ngFor="let project of projects">
-      <td><strong>{{ project.model }}</strong></td>
-      <td>{{ project.engine }}</td>
-      <td>{{ project.interior }}</td>
-      <td>{{ project.exterior }}</td>
-      <td>{{ project.suspension }}</td>
+      <td (click)="showDetails(project)"><strong>{{ project.model }}</strong></td>
+      <td (click)="showDetails(project)">{{ project.engine }}</td>
+      <td (click)="showDetails(project)">{{ project.interior }}</td>
+      <td (click)="showDetails(project)">{{ project.exterior }}</td>
+      <td (click)="showDetails(project)">{{ project.suspension }}</td>
       <td>
         <button class="btn btn-primary btn-sm" (click)="selectProject(project)">Edit</button>
         <button class="btn btn-danger btn-sm" (click)="deleteProject(project.id)">Delete</button>
